@@ -256,14 +256,13 @@ export async function titleFrameSource({ width, height, params }) {
     fontBold = false,
     fontItalic = false,
     textAlign = 'center',
+    textBackgroundColor = '#ffffff',
     lineHeight = 1.16,
-    opacity = 1,
-    backgroundColor = "#ffffff"
+    opacity = 1
   } = params;
 
   async function onRender(progress, canvas) {
     const min = Math.min(width, height);
-    const padding = 0.05 * min;
 
     const fontSize = Math.round(min * 0.1);
 
@@ -277,6 +276,7 @@ export async function titleFrameSource({ width, height, params }) {
       width: width * 0.8,
       fontWeight: fontBold ? 'bold' : 'normal',
       fontStyle: fontItalic ? 'italic' : 'normal',
+      textBackgroundColor: textBackgroundColor,
       lineHeight: lineHeight,
       opacity: opacity,
     });
@@ -294,17 +294,6 @@ export async function titleFrameSource({ width, height, params }) {
       scaleX: scaleFactor,
       scaleY: scaleFactor,
     });
-
-    const rect = new fabric.Rect({
-      left: 0,
-      width,
-      height: textBox.height + padding * 2,
-      top: height,
-      originY: 'bottom',
-      fill: backgroundColor,
-    });
-
-    canvas.add(rect);
 
     canvas.add(textImage);
   }
