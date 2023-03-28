@@ -248,17 +248,18 @@ export async function imageOverlayFrameSource({ params, width, height }) {
 export async function titleFrameSource({ width, height, params }) {
   const {
     text,
-    textColor = '#ffffff',
+    textColor = '#000000',
     fontFamily = defaultFontFamily,
     position = 'center',
     zoomDirection = 'in',
     zoomAmount = 0.2,
-    fontWeight = false,
+    fontBold = false,
     fontItalic = false,
     textAlign = 'center',
     textBackgroundColor = '#ffffff',
     lineHeight = 1.16,
-    opacity = 1
+    opacity = 1,
+    backgroundColor = "#ffffff"
   } = params;
 
   async function onRender(progress, canvas) {
@@ -274,11 +275,12 @@ export async function titleFrameSource({ width, height, params }) {
       fontSize,
       textAlign: textAlign,
       width: width * 0.8,
-      fontWeight: fontWeight ? 'bold' : 'normal',
+      fontWeight: fontBold ? 'bold' : 'normal',
       fontStyle: fontItalic ? 'italic' : 'normal',
       textBackgroundColor: textBackgroundColor,
       lineHeight: lineHeight,
-      opacity: opacity
+      opacity: opacity,
+      backgroundColor: backgroundColor,
     });
 
     // We need the text as an image in order to scale it
