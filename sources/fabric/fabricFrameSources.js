@@ -256,7 +256,6 @@ export async function titleFrameSource({ width, height, params }) {
     fontBold = false,
     fontItalic = false,
     textAlign = 'center',
-    textBackgroundColor = '#ffffff',
     lineHeight = 1.16,
     opacity = 1,
     backgroundColor = "#ffffff"
@@ -278,7 +277,6 @@ export async function titleFrameSource({ width, height, params }) {
       width: width * 0.8,
       fontWeight: fontBold ? 'bold' : 'normal',
       fontStyle: fontItalic ? 'italic' : 'normal',
-      textBackgroundColor: textBackgroundColor,
       lineHeight: lineHeight,
       opacity: opacity,
     });
