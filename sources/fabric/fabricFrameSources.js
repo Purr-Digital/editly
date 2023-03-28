@@ -264,6 +264,7 @@ export async function titleFrameSource({ width, height, params }) {
 
   async function onRender(progress, canvas) {
     const min = Math.min(width, height);
+    const padding = 0.05 * min;
 
     const fontSize = Math.round(min * 0.1);
 
@@ -280,7 +281,6 @@ export async function titleFrameSource({ width, height, params }) {
       textBackgroundColor: textBackgroundColor,
       lineHeight: lineHeight,
       opacity: opacity,
-      backgroundColor: backgroundColor,
     });
 
     // We need the text as an image in order to scale it
@@ -296,6 +296,18 @@ export async function titleFrameSource({ width, height, params }) {
       scaleX: scaleFactor,
       scaleY: scaleFactor,
     });
+
+    const rect = new fabric.Rect({
+      left: 0,
+      width,
+      height: textBox.height + padding * 2,
+      top: height,
+      originY: 'bottom',
+      fill: backgroundColor,
+    });
+
+    canvas.add(rect);
+
     canvas.add(textImage);
   }
 
