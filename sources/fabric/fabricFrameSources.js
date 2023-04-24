@@ -20,7 +20,7 @@ function getZoomParams({ progress, zoomDirection, zoomAmount }) {
 }
 
 export async function imageFrameSource({ verbose, params, width, height }) {
-  const { path, zoomDirection = 'in', zoomAmount = 0.1, resizeMode = 'contain-blur' } = params;
+  const { path, zoomDirection = 'in', zoomAmount = 0, resizeMode = 'cover' } = params;
 
   if (verbose) console.log('Loading', path);
 
@@ -246,19 +246,24 @@ export async function imageOverlayFrameSource({ params, width, height }) {
 }
 
 export async function titleFrameSource({ width, height, params }) {
+
+  console.log(params);
+
   const {
     text,
-    textColor = '#000000',
+    fillColor,
+    fontColor,
+    fontBackgroundColor,
     fontFamily = defaultFontFamily,
     position = 'center',
-    zoomDirection = 'in',
-    zoomAmount = 0.2,
     fontBold = false,
     fontItalic = false,
     textAlign = 'center',
-    textBackgroundColor = '#ffffff',
     lineHeight = 1.16,
-    opacity = 1
+    opacity,
+    left,
+    top,
+    width: newWidth,
   } = params;
 
   async function onRender(progress, canvas) {
@@ -266,29 +271,35 @@ export async function titleFrameSource({ width, height, params }) {
 
     const fontSize = Math.round(min * 0.1);
 
+    const zoomAmount = 0;
+    const zoomDirection = null;
+
     const scaleFactor = getZoomParams({ progress, zoomDirection, zoomAmount });
+    console.log(scaleFactor);
 
     const textBox = new fabric.Textbox(text, {
-      fill: textColor,
+      fill: fontColor,
       fontFamily,
-      fontSize,
-      textAlign: textAlign,
-      width: width * 0.8,
+      fontSize: fontSize * 0.7,
+      textAlign,
+      textBackgroundColor: fillColor,
+      width: newWidth,
       fontWeight: fontBold ? 'bold' : 'normal',
       fontStyle: fontItalic ? 'italic' : 'normal',
-      textBackgroundColor: textBackgroundColor,
-      lineHeight: lineHeight,
-      opacity: opacity,
+      fontBackgroundColor,
+      lineHeight,
+      opacity,
+      padding: 32,
     });
 
     // We need the text as an image in order to scale it
     const textImage = await new Promise((r) => textBox.cloneAsImage(r));
 
-    const { left, top, originX, originY } = getPositionProps({ position, width, height });
+    console.log(textImage);
+
+    const { textLeft, textTop, originX, originY } = getPositionProps({ position, width, height });
 
     textImage.set({
-      originX,
-      originY,
       left,
       top,
       scaleX: scaleFactor,
