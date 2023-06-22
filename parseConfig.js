@@ -99,7 +99,10 @@ export default async function parseConfig({ defaults: defaultsIn = {}, clips, ar
       if (fontPath) {
         fontFamily = Buffer.from(basename(fontPath)).toString('base64');
         if (!loadedFonts.includes(fontFamily)) {
-          registerFont(fontPath, { family: fontFamily, weight: 'regular', style: 'normal' });
+          registerFont(`${fontPath}-Regular.ttf`, { family: fontFamily, weight: 'regular', style: 'normal' });
+          registerFont(`${fontPath}-RegularItalic.ttf`, { family: fontFamily, weight: 'regular', style: 'italic' });
+          registerFont(`${fontPath}-Bold.ttf`, { family: fontFamily, weight: 'bold', style: 'normal' });
+          registerFont(`${fontPath}-BoldItalic.ttf`, { family: fontFamily, weight: 'bold', style: 'italic' });
           loadedFonts.push(fontFamily);
         }
       }
