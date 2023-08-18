@@ -272,8 +272,7 @@ export async function titleFrameSource({ width, height, params }) {
     boundingBoxWidth
   } = params;
 
-  console.log(boundingBoxHeight, boundingBoxWidth);
-  // const min = Math.min(width, height);
+  const min = Math.min(boundingBoxWidth, boundingBoxHeight);
 
   async function onRender(progress, canvas) {
     const zoomAmount = 0;
@@ -284,7 +283,7 @@ export async function titleFrameSource({ width, height, params }) {
     const textBox = new fabric.Textbox(text, {
       fill: fontColor,
       fontFamily,
-      fontSize,
+      fontSize: min / fontSize,
       textAlign,
       textBackgroundColor: fillColor,
       width: newWidth,
