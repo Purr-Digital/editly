@@ -283,7 +283,7 @@ export async function titleFrameSource({ width, height, params }) {
     const textBox = new fabric.Textbox(text, {
       fill: fontColor,
       fontFamily,
-      fontSize: min / fontSize,
+      fontSize,
       textAlign,
       textBackgroundColor: fillColor,
       width: newWidth,
