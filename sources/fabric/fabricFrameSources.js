@@ -268,7 +268,12 @@ export async function titleFrameSource({ width, height, params }) {
     left,
     top,
     width: newWidth,
+    boundingBoxHeight,
+    boundingBoxWidth
   } = params;
+
+  console.log(boundingBoxHeight, boundingBoxWidth);
+  // const min = Math.min(width, height);
 
   async function onRender(progress, canvas) {
     const zoomAmount = 0;
